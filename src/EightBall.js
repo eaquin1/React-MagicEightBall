@@ -11,17 +11,31 @@ function EightBall(props) {
     const restart = () => {
         setColor("black");
         setPrediction("Think of a Question")
+        setRedCount(0)
+        setYellowCount(0)
+        setGreenCount(0)
     }
     const [prediction, setPrediction] = useState("Think of a Question");
     const [color, setColor] = useState("black");
+    const [redCount, setRedCount] = useState(0)
+    const [yellowCount, setYellowCount] = useState(0)
+    const [greenCount, setGreenCount] = useState(0)
+
     function handleClick() {
         const { msg, color } = choice(props.choices);
         setPrediction(msg);
         setColor(color);
+        if(color === 'red'){
+            setRedCount(redCount + 1)
+        } else if (color === 'goldenrod'){
+            setYellowCount(yellowCount + 1)
+        } else if (color === 'green'){
+            setGreenCount(greenCount + 1)
+        }
     }
 
     return (
-        <>
+        <div>
             <div
                 onClick={handleClick}
                 className="EightBall"
@@ -29,8 +43,9 @@ function EightBall(props) {
             >
                 <p className="EightBall-text">{prediction}</p>
             </div>
+            <h4>Green count: {greenCount}, Yellow count: {yellowCount}, Red count: {redCount}</h4>
             <button onClick={restart}>Reset</button>
-        </>
+        </div>
     );
 }
 
